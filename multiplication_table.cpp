@@ -1,14 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
-long long n;
-vector<int> nums;
-int check(long long mid, long long k){
-    long long ct=0;
-    for(long long i=1;i<=n;i++){
-        ct+= min(n,mid/i);
-    }
 
-    if(ct>=k) return 1;
+vector<long long> nums;
+
+int check(long long mid, long long k){
+    int n=nums.size();
+    if(nums[n-1]-nums[0] - mid <= k) return 1;
+
+    //if(ct>=k) return 1;
     return 0;
 
 }
@@ -17,12 +16,18 @@ int check(long long mid, long long k){
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
-    cin>>n;
-
-    long long lo=1;
-    long long hi=n*n;
+    long long n,k;
+    cin>>n>>k;
+    nums.resize(n);
+    for(int i=0;i<n;i++) cin>>nums[i];
+    sort(nums.begin(),nums.end());
+    long long lo=0;
+    long long hi=nums[n-1]-nums[0];
+    if(hi==0){
+        cout<<hi<<"\n";
+        return 0;
+    }
     long long ans=hi;
-    long long k= (n*n)/2 +1;
     while(lo<=hi){
         long long mid=(hi+lo)/2;
         if(check(mid,k)){
